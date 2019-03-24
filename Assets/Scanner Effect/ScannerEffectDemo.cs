@@ -4,7 +4,10 @@ using System.Collections;
 [ExecuteInEditMode]
 public class ScannerEffectDemo : MonoBehaviour
 {
-	public Transform ScannerOrigin;
+    public AudioSource[] dolphinSounds;
+
+
+    public Transform ScannerOrigin;
 	public Material EffectMaterial;
 	public float ScanDistance;
 
@@ -37,17 +40,13 @@ public class ScannerEffectDemo : MonoBehaviour
 			ScanDistance = 0;
 		}
 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-
-			if (Physics.Raycast(ray, out hit))
-			{
-				_scanning = true;
+            AudioSource dolphinSound = dolphinSounds[Random.Range(0, dolphinSounds.Length)];
+            dolphinSound.Play();
+                _scanning = true;
 				ScanDistance = 0;
-				ScannerOrigin.position = hit.point;
-			}
+
 		}
 	}
 	// End Demo Code
